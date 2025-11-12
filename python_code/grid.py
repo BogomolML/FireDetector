@@ -10,7 +10,7 @@ def check_point(coord: tuple, img_h: int, img_w: int) -> int:
     row_index = coord[1] // cell_h
 
     cell_number = row_index * COLS + col_index + 1
-    return cell_number
+    return int(cell_number)
 
 def get_grid_size() -> tuple:
     return ROWS, COLS

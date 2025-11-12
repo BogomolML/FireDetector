@@ -2,7 +2,7 @@ import cv2
 
 
 SCALE_FACTOR = 1.1
-MIN_NEIGHBORS = 4
+MIN_NEIGHBORS = 3
 
 class Camera:
     def __init__(self):
