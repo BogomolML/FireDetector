@@ -1,6 +1,8 @@
 ROWS, COLS = 6, 6
 
-def check_point(coord: tuple, img_h: int, img_w: int) -> tuple:
+def check_point(coord: tuple, img_h: int, img_w: int) -> int:
+    if coord is None:
+        return 0
     cell_w = img_w // COLS
     cell_h = img_h // ROWS
 
@@ -10,5 +12,5 @@ def check_point(coord: tuple, img_h: int, img_w: int) -> tuple:
     cell_number = row_index * COLS + col_index + 1
     return cell_number
 
-def get_grid_size():
+def get_grid_size() -> tuple:
     return ROWS, COLS

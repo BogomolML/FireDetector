@@ -1,6 +1,9 @@
 import cv2
 
 
+SCALE_FACTOR = 1.1
+MIN_NEIGHBORS = 4
+
 class Camera:
     def __init__(self):
         self.camera = None
@@ -25,8 +28,8 @@ class Camera:
         if frame is None:
             return False, None
 
-        self.fire = cascade.detectMultiScale(frame, 1.05, 4)
-        if self.fire is not ():
+        self.fire = cascade.detectMultiScale(frame, SCALE_FACTOR, MIN_NEIGHBORS)
+        if len(self.fire) > 0:
             return True, self.fire[0]
         return False, None
 

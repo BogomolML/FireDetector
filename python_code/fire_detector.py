@@ -9,9 +9,7 @@ def init_cap():
     print("Нажмите 'q' чтобы выйти")
     return cap
 
-def main(cap):
-    fire_cascade = cv2.CascadeClassifier('fire_detection.xml')
-
+def main(cap, fire_cascade):
     cell = 0
 
     while True:
@@ -38,8 +36,3 @@ def main(cap):
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
-    cap.release_camera()
-    cv2.destroyAllWindows()
-    print("Программа завершена")
-    return -1
