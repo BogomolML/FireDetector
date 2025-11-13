@@ -1,8 +1,13 @@
 import cv2
 
+
+SCALE_FACTOR = 1.1
+MIN_NEIGHBORS = 3
+
 class Camera:
     def __init__(self):
         self.camera = None
+        self.fire = ()
 
     def init_camera(self):
         try:
@@ -19,15 +24,23 @@ class Camera:
                 return frame
         return None
 
-    @staticmethod
-    def detect_object(frame, cascade):
+    def detect_object(self, frame, cascade):
         if frame is None:
             return False, None
 
-        fire = cascade.detectMultiScale(frame, 1.1, 5)
-        if fire is not ():
-            return True, fire[0]
+        self.fire = cascade.detectMultiScale(frame, SCALE_FACTOR, MIN_NEIGHBORS)
+        if len(self.fire) > 0:
+            return True, self.fire[0]
         return False, None
+
+    def get_center(self):
+        try:
+            x, y, w, h = self.fire[0]
+            center = (x + w / 2, y + h / 2)
+            return center
+        except IndexError:
+            print('Не определён огонь')
+            return None
 
     def release_camera(self):
         if self.camera:
