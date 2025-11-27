@@ -8,10 +8,11 @@ from UI import DisplayThread
 from calc_angle import angles_to_servo_commands
 from fire_detector import init_cap, fire_detect
 
+PORT = 'COM3'
 SEND_INTERVAL = 1
 
 try:
-    ser = serial.Serial('COM3', 9600)
+    ser = serial.Serial(PORT, 9600)
 except SerialException as e:
     print(e)
     exit(-1)
@@ -22,7 +23,7 @@ fire_cascade = cv2.CascadeClassifier('fire_detection.xml')
 display_thread = DisplayThread()
 display_thread.start()
 
-servo_h, servo_v = 0, 0
+servo_h, servo_v = 90, 90
 last_send_time = 0
 try:
     while True:

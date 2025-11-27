@@ -39,7 +39,7 @@ class DisplayThread(threading.Thread):
         self.frame_queue.put(frame.copy())
 
     def stop(self):
-        self.running = False
+        self._running = False
 
     def run(self):
         while self.running:
