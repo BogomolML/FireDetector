@@ -1,12 +1,14 @@
 #include <Servo.h>
 
+
 Servo servo_h;
 Servo servo_v;
 float servo_angle_h, servo_angle_v;
 short lazer = 13;
 
-float center_h = 3.0f;
-float center_v = 14.0f;
+
+float center_h = -11.0f;
+float center_v = -10.0f;
 
 void setup() {
   Serial.begin(9600);

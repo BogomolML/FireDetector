@@ -3,8 +3,6 @@ from queue import Queue
 
 import cv2
 
-from grid import get_grid_size
-
 
 class DisplayThread(threading.Thread):
     def __init__(self):
@@ -59,12 +57,9 @@ class DisplayThread(threading.Thread):
 
 
 def draw_frame(frame, obj: tuple):
-    h, w = frame.shape[:2]
-    r, c = get_grid_size()
     color = (0, 0, 255)
+    x, y = frame.shape[:2]
+    x, y = x // 2, y // 2
+    cv2.circle(frame, (y, x), 3, color, -1)
     if len(obj) > 0:
         cv2.rectangle(frame, obj[0], obj[1], color, 2)
-    for x in range(0, w - 1, w // r):
-        cv2.line(frame, (x, 0), (x, h), color[::-1], 1, 1)
-    for y in range(0, h - 1, h // c):
-        cv2.line(frame, (0, y), (w, y), color[::-1], 1, 1)

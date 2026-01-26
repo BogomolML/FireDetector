@@ -1,5 +1,4 @@
 from camera import Camera
-from grid import check_point
 
 
 def init_cap():
@@ -8,8 +7,9 @@ def init_cap():
     print("Нажмите 'q' чтобы выйти")
     return cap
 
+
 def fire_detect(cap, fire_cascade, display_thread):
-    cell = 0
+    fire_center = 0
 
     while display_thread.running:
         frame = cap.capture_frame()
@@ -19,10 +19,12 @@ def fire_detect(cap, fire_cascade, display_thread):
             if found:
                 x, y, w, h = box
                 center = cap.get_center()
-                cell = check_point(center, *frame.shape[:2])
-                display_thread.obj = ((x, y), (x + w, y + h))
-                display_thread.update_frame(frame)
-                return cell
+                if center is not None:
+                    # Возвращаем координаты центра огня (x, y)
+                    fire_center = (int(center[0]), int(center[1]))
+                    display_thread.obj = ((x, y), (x + w, y + h))
+                    display_thread.update_frame(frame)
+                    return fire_center
             else:
                 display_thread.obj = ()
                 display_thread.update_frame(frame)

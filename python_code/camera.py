@@ -1,8 +1,9 @@
 import cv2
 
 
-SCALE_FACTOR = 1.1
-MIN_NEIGHBORS = 3
+SCALE_FACTOR = 1.2
+MIN_NEIGHBORS = 1
+
 
 class Camera:
     def __init__(self):
@@ -11,8 +12,7 @@ class Camera:
 
     def init_camera(self):
         try:
-            self.camera = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-
+            self.camera = cv2.VideoCapture(1, cv2.CAP_DSHOW)
             print("Камера инициализирована")
         except Exception as e:
             print(f"Ошибка инициализации: {e}")
