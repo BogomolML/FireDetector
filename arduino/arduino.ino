@@ -5,7 +5,6 @@ Servo servo_h;
 Servo servo_v;
 
 float servo_angle_h, servo_angle_v;
-int8_t lazer = 13;
 int8_t RELAY_PIN = 2;
 
 int8_t pump_time = 5;
@@ -13,12 +12,12 @@ int8_t pump_time = 5;
 int32_t now_time = 0;
 int32_t turn_on_time = 0;
 
-int8_t center_h = -11;
+int8_t center_h = -13;
 int8_t center_v = -10;
 
 void setup() {
   pinMode(RELAY_PIN, OUTPUT);
-  digitalWrite(RELAY_PIN, HIGH);
+  digitalWrite(RELAY_PIN, LOW);
 
   Serial.begin(9600);
   servo_h.attach(9);
@@ -26,9 +25,6 @@ void setup() {
 
   servo_h.write(90 + center_h);
   servo_v.write(90 + center_v);
-
-  pinMode(lazer, OUTPUT);
-  digitalWrite(lazer, HIGH);
 }
 
 void loop() {
@@ -46,11 +42,12 @@ void loop() {
       servo_h.write(servo_angle_h);
       servo_v.write(servo_angle_v);
 
-      digitalWrite(RELAY_PIN, LOW);
+      digitalWrite(RELAY_PIN, HIGH);
       turn_on_time = millis();
 
-      while (millis() - turn_on_time <= 5000) {}
-      digitalWrite(RELAY_PIN, HIGH);
     }
+  }
+  if (millis() - turn_on_time > 5000) {
+      digitalWrite(RELAY_PIN, LOW);
   }
 }

@@ -10,8 +10,8 @@ def cell_to_angles(coord: tuple, frame_size: tuple) -> tuple:
 
     radial_distance = (norm_x ** 2 + norm_y ** 2) ** 0.5
 
-    if norm_y < 0:  # Верх кадра
-        vertical_factor = 1.5  # Усиление для верха
+    if norm_y < 0:
+        vertical_factor = 1.5
     else:
         vertical_factor = 1.0
 

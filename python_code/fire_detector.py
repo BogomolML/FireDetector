@@ -8,24 +8,24 @@ def init_cap():
     return cap
 
 
-def fire_detect(cap, fire_cascade, display_thread):
+def fire_detect(cap, yolos, display_thread):
     fire_center = 0
 
     while display_thread.running:
         frame = cap.capture_frame()
         if frame is not None:
-            found, box = cap.detect_object(frame, fire_cascade)
+            found, box = cap.detect_object(frame, yolos[1])
 
             if found:
-                x, y, w, h = box
+                x1, y1, x2, y2 = box
                 center = cap.get_center()
+                print(center)
                 if center is not None:
-                    # Возвращаем координаты центра огня (x, y)
                     fire_center = (int(center[0]), int(center[1]))
-                    display_thread.obj = ((x, y), (x + w, y + h))
+                    display_thread.obj = ((x1, y1), (x2, y2))
                     display_thread.update_frame(frame)
                     return fire_center
             else:
-                display_thread.obj = ()
+                display_thread.obj = (-1, -1, -1, -1)
                 display_thread.update_frame(frame)
     return -1

@@ -61,5 +61,5 @@ def draw_frame(frame, obj: tuple):
     x, y = frame.shape[:2]
     x, y = x // 2, y // 2
     cv2.circle(frame, (y, x), 3, color, -1)
-    if len(obj) > 0:
+    if obj[0] != -1:
         cv2.rectangle(frame, obj[0], obj[1], color, 2)
