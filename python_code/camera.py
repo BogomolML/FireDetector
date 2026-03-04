@@ -2,8 +2,7 @@ import cv2
 import numpy as np
 
 
-SCALE_FACTOR = 1.05
-MIN_NEIGHBORS = 1
+CAM_INDEX = 1
 
 
 class Camera:
@@ -13,7 +12,7 @@ class Camera:
 
     def init_camera(self):
         try:
-            self.camera = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+            self.camera = cv2.VideoCapture(CAM_INDEX, cv2.CAP_DSHOW)
             print("Камера инициализирована")
         except Exception as e:
             print(f"Ошибка инициализации: {e}")
@@ -29,7 +28,7 @@ class Camera:
         if frame is None:
             return False, None
 
-        results = yolo(frame)[0]
+        results = yolo(frame, conf=0.3)[0]
         classes_names = results.names
         classes = results.boxes.cls.cpu().numpy()
         boxes = results.boxes.xyxy.cpu().numpy().astype(np.int32)
@@ -44,6 +43,7 @@ class Camera:
         if 'Fire' not in grouped_obj.keys():
             return False, None
 
+        self.fire = (-1, -1, -1, -1)
         area = (self.fire[2] - self.fire[0]) * (self.fire[3] * self.fire[1])
         for x1, y1, x2, y2 in grouped_obj['Fire']:
             if (x2 - x1) * (y2 - y1) > area:

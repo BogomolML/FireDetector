@@ -1,9 +1,9 @@
 from time import time, sleep
 
-from ultralytics import YOLO
 import cv2
 import serial
 from serial import SerialException
+from ultralytics import YOLO
 
 from UI import DisplayThread
 from calc_angle import angles_to_servo_commands
@@ -15,15 +15,17 @@ PORT = 'COM8'
 try:
     ser = serial.Serial(PORT, 9600)
 except SerialException as e:
-    print(e)
-    exit(-1)
+     print(e)
+     exit(-1)
 
 cap = init_cap()
 old_fire_center = 0
 
-yolo_1 = YOLO('yolov8_1.pt')
-yolo_2 = YOLO('yolov8_2.pt')
-yolos = (yolo_1, yolo_2)
+yolo_1 = YOLO('models/yolov8_1.pt')
+yolo_2 = YOLO('models/yolov8_2.pt')
+yolo_3 = YOLO('models/yolo26n.pt')
+yolo_4 = YOLO('models/yolo26s.pt')
+yolos = (yolo_1, yolo_2, yolo_3, yolo_4)
 
 display_thread = DisplayThread()
 display_thread.start()
