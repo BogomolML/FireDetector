@@ -8,13 +8,13 @@ def init_cap():
     return cap
 
 
-def fire_detect(cap, yolos, display_thread):
+def fire_detect(cap, yolo, display_thread):
     fire_center = 0
 
     while display_thread.running:
         frame = cap.capture_frame()
         if frame is not None:
-            found, box = cap.detect_object(frame, yolos[2])
+            found, box = cap.detect_object(frame, yolo)
 
             if found:
                 x1, y1, x2, y2 = box

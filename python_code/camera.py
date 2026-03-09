@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-CAM_INDEX = 1
+CAM_INDEX = 0
 
 
 class Camera:
@@ -28,7 +28,7 @@ class Camera:
         if frame is None:
             return False, None
 
-        results = yolo(frame, conf=0.3)[0]
+        results = yolo(frame, conf=0.45)[0]
         classes_names = results.names
         classes = results.boxes.cls.cpu().numpy()
         boxes = results.boxes.xyxy.cpu().numpy().astype(np.int32)
@@ -53,7 +53,12 @@ class Camera:
     def get_center(self):
         try:
             x1, y1, x2, y2 = self.fire
-            center = (x1 + (x2 - x1) / 2, y2)
+            w, h = x2 - x1, y2 - y1
+            k = h / w
+
+            x = x1 + w / 2
+            y = h * min(0.99, max(0.5, (k + 1) / 4))
+            center = (x, y)
             return center
         except IndexError:
             print('Не определён огонь')

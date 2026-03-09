@@ -21,11 +21,7 @@ except SerialException as e:
 cap = init_cap()
 old_fire_center = 0
 
-yolo_1 = YOLO('models/yolov8_1.pt')
-yolo_2 = YOLO('models/yolov8_2.pt')
-yolo_3 = YOLO('models/yolo26n.pt')
-yolo_4 = YOLO('models/yolo26s.pt')
-yolos = (yolo_1, yolo_2, yolo_3, yolo_4)
+yolo = YOLO('models/yolo26n_better.pt')
 
 display_thread = DisplayThread()
 display_thread.start()
@@ -36,7 +32,7 @@ last_send_time = 0
 
 try:
     while True:
-        fire_center = fire_detect(cap, yolos, display_thread)
+        fire_center = fire_detect(cap, yolo, display_thread)
         if fire_center == -1:
             break
         if fire_center != 0 and time() - last_send_time > SEND_INTERVAL:
