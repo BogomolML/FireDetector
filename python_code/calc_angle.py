@@ -19,7 +19,6 @@ def cell_to_angles(coord: tuple, frame_size: tuple) -> tuple:
 
     angle_h = norm_x * (HFOV / 2) * k_correction
     angle_v = norm_y * (VFOV / 2) * k_correction
-    print(angle_h, angle_v)
     return angle_h, angle_v
 
 

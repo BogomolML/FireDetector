@@ -44,10 +44,11 @@ class Camera:
             return False, None
 
         self.fire = (-1, -1, -1, -1)
-        area = (self.fire[2] - self.fire[0]) * (self.fire[3] * self.fire[1])
+        area = 0
         for x1, y1, x2, y2 in grouped_obj['Fire']:
             if (x2 - x1) * (y2 - y1) > area:
                 self.fire = (x1, y1, x2, y2)
+                area = (self.fire[2] - self.fire[0]) * (self.fire[3] - self.fire[1])
         return True, self.fire
 
     def get_center(self):
