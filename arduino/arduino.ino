@@ -7,13 +7,12 @@ Servo servo_v;
 float servo_angle_h, servo_angle_v;
 int8_t RELAY_PIN = 2;
 
-int8_t pump_time = 5;
+int8_t angle_dev = 3;
 
-int32_t now_time = 0;
 int32_t turn_on_time = 0;
 
-int8_t center_h = -13;
-int8_t center_v = -10;
+int8_t center_h = -11;
+int8_t center_v = -13;
 
 void setup() {
   pinMode(RELAY_PIN, OUTPUT);
@@ -47,7 +46,7 @@ void loop() {
 
     }
   }
-  if (millis() - turn_on_time > 5000) {
-      digitalWrite(RELAY_PIN, LOW);
+  if (millis() - turn_on_time > 3000) {
+    digitalWrite(RELAY_PIN, LOW);
   }
 }

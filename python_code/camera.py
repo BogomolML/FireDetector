@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-CAM_INDEX = 0
+CAM_INDEX = 1
 
 
 class Camera:
@@ -28,7 +28,7 @@ class Camera:
         if frame is None:
             return False, None
 
-        results = yolo(frame, conf=0.45)[0]
+        results = yolo(frame, conf=0.6, device='cuda:0', verbose=False)[0]
         classes_names = results.names
         classes = results.boxes.cls.cpu().numpy()
         boxes = results.boxes.xyxy.cpu().numpy().astype(np.int32)
@@ -58,7 +58,7 @@ class Camera:
             k = h / w
 
             x = x1 + w / 2
-            y = h * min(0.99, max(0.5, (k + 1) / 4))
+            y = y1 + h * min(0.99, max(0.5, (k + 1) / 4))
             center = (x, y)
             return center
         except IndexError:

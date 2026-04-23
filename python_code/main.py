@@ -9,7 +9,7 @@ from UI import DisplayThread
 from calc_angle import angles_to_servo_commands
 from fire_detector import init_cap, fire_detect
 
-SEND_INTERVAL = 3
+SEND_INTERVAL = 2
 PORT = 'COM8'
 
 try:
